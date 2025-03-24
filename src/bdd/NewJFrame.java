@@ -29,12 +29,12 @@ public class NewJFrame extends javax.swing.JFrame {
         Panel_Principal = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         JLusuario = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         JLusuario1 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        adminBoton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        campoContra = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,15 +52,6 @@ public class NewJFrame extends javax.swing.JFrame {
         JLusuario.setText("CONTRASEÑA");
         Panel_Principal.add(JLusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 180, 50));
 
-        jTextField1.setFont(new java.awt.Font("Perpetua", 2, 24)); // NOI18N
-        jTextField1.setText("Ingrese su poderosa contraseña");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        Panel_Principal.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 420, 30));
-
         JLusuario1.setFont(new java.awt.Font("Sitka Small", 1, 24)); // NOI18N
         JLusuario1.setForeground(new java.awt.Color(255, 199, 44));
         JLusuario1.setText("USUARIO");
@@ -75,8 +66,13 @@ public class NewJFrame extends javax.swing.JFrame {
         });
         Panel_Principal.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 420, 30));
 
-        jButton1.setText("Iniciar Sesion como Profesor");
-        Panel_Principal.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 380, 200, 50));
+        adminBoton.setText("Iniciar Sesion como Profesor");
+        adminBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminBotonActionPerformed(evt);
+            }
+        });
+        Panel_Principal.add(adminBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 380, 200, 50));
 
         jButton2.setText("Iniciar Sesion como Alumno");
         Panel_Principal.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 200, 50));
@@ -85,13 +81,20 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel2.setText("jLabel2");
         Panel_Principal.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 0, 310, 660));
 
+        campoContra.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        campoContra.setText("Lacontra");
+        campoContra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoContraActionPerformed(evt);
+            }
+        });
+        Panel_Principal.add(campoContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 420, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(Panel_Principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(Panel_Principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,13 +104,22 @@ public class NewJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void campoContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoContraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoContraActionPerformed
+
+    private void adminBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminBotonActionPerformed
+        
+        if(campoContra.getAccessibleContext().equals("jijijija")){
+        System.out.println("aña");
+    }else{
+        System.out.println("gil");
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_adminBotonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,11 +160,11 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel JLusuario;
     private javax.swing.JLabel JLusuario1;
     private javax.swing.JPanel Panel_Principal;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton adminBoton;
+    private javax.swing.JPasswordField campoContra;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
