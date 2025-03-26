@@ -4,6 +4,10 @@
  */
 package bdd;
 
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Vespertino
@@ -113,12 +117,12 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_campoContraActionPerformed
 
     private void adminBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminBotonActionPerformed
-        
         if(campoContra.getAccessibleContext().equals("jijijija")){
         System.out.println("aña");
     }else{
         System.out.println("gil");
-    }        // TODO add your handling code here:
+    }
+           // TODO add your handling code here:
     }//GEN-LAST:event_adminBotonActionPerformed
 
     /**
