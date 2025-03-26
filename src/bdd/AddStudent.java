@@ -4,15 +4,23 @@
  */
 package bdd;
 
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author SetyV
  */
 public class AddStudent extends javax.swing.JPanel {
 
-    /**
-     * Creates new form AddStudent
-     */
+    
     public AddStudent() {
         initComponents();
     }
@@ -27,23 +35,21 @@ public class AddStudent extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        TextApellido = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        textNombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        textnia = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        TextCurso = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        TextEdad = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        TextID = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        TextMatricula = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        TextCiclo = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -54,90 +60,112 @@ public class AddStudent extends javax.swing.JPanel {
         jLabel1.setText("Apellido");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, -1));
 
-        jTextField1.setText("Ingrese su apellido");
-        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 360, 30));
+        TextApellido.setText("Ingrese su apellido");
+        add(TextApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 360, 30));
 
         jLabel2.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
         jLabel2.setText("Nombre");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, -1, -1));
 
-        jTextField2.setText("Ingrese su nombre");
-        add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 360, 30));
+        textNombre.setText("Ingrese su nombre");
+        add(textNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 360, 30));
 
         jLabel3.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
-        jLabel3.setText("Telefono");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, -1, -1));
+        jLabel3.setText("NIA");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, -1, -1));
 
-        jTextField3.setText("Ingrese su apellido");
-        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 190, 30));
-
-        jLabel4.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
-        jLabel4.setText("Correo Electronico");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
-        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 360, 30));
+        textnia.setText("Ingrese su apellido");
+        add(textnia, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 190, 30));
 
         jLabel5.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
         jLabel5.setText("Curso");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 380, -1, -1));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, -1, -1));
 
-        jTextField5.setText("Ingrese su apellido");
-        add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 410, 210, 30));
+        TextCurso.setText("Ingrese su apellido");
+        add(TextCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 210, 30));
 
         jLabel6.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
         jLabel6.setText("Edad");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, -1, -1));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, -1, -1));
 
-        jTextField6.setText("Ingrese su apellido");
-        add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 130, 30));
+        TextEdad.setText("Ingrese su apellido");
+        add(TextEdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 130, 30));
 
         jLabel7.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 199, 44));
         jLabel7.setText("ID Alumno");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, -1, -1));
 
-        jTextField7.setText("Ingrese su apellido");
-        add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 340, 210, 30));
+        TextID.setText("Ingrese su apellido");
+        add(TextID, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 210, 30));
 
         jLabel8.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
         jLabel8.setText("Fecha de Matricula");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, -1, -1));
-        add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 480, 210, 30));
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, -1, -1));
+        add(TextMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, 210, 30));
 
         jLabel9.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
         jLabel9.setText("Ciclo");
-        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, -1, -1));
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, -1, -1));
 
-        jTextField9.setText("Ingrese su apellido");
-        jTextField9.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 410, 210, 30));
+        TextCiclo.setText("Ingrese su apellido");
+        TextCiclo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        add(TextCiclo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, 210, 30));
 
         jButton1.setBackground(new java.awt.Color(218, 41, 28));
         jButton1.setFont(new java.awt.Font("McDonalds Helvetica", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Añadir a BDD");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 550, 200, 50));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      
+        try(Connection conexion = DriverManager.getConnection("jdbc:mariadb://localhost:3306/prog", "root", "alumno");) {
+          
+          
+            System.out.println("¡Conexión exitosa!");
+        String query = "Insert into alumnos values("+TextID.getText()+","+textNombre.getText()+","+TextApellido.getText()+","+TextEdad.getText()+","+textnia.getText()+","+TextCiclo.getText()+","+TextCurso.getText()+","+TextMatricula.getText()+")";
+           PreparedStatement preparedStatement = conexion.prepareStatement(query);
+
+            
+            int columnas = preparedStatement.executeUpdate();
+
+            if (columnas > 0) {
+                System.out.println("Usuario insertado correctamente.");
+            } else {
+                System.out.println("Error al insertar el usuario.");
+            }
+            
+    }   catch (SQLException ex) {
+            Logger.getLogger(BDD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField TextApellido;
+    private javax.swing.JTextField TextCiclo;
+    private javax.swing.JTextField TextCurso;
+    private javax.swing.JTextField TextEdad;
+    private javax.swing.JTextField TextID;
+    private javax.swing.JTextField TextMatricula;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField textNombre;
+    private javax.swing.JTextField textnia;
     // End of variables declaration//GEN-END:variables
 }
