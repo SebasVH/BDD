@@ -19,6 +19,8 @@ public class PanelPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
+    
+    public static String IP="jdbc:mariadb://10.227.189.184:3306/prog";
     public PanelPrincipal() {
         initComponents();
         
@@ -151,7 +153,7 @@ public class PanelPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_killStudentActionPerformed
 
     private void modifyStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyStudentActionPerformed
-        // TODO add your handling code here:
+        showCsm(new ModStudent());
     }//GEN-LAST:event_modifyStudentActionPerformed
 
     private void listar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listar1ActionPerformed

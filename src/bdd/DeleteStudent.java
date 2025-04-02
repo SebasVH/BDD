@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DeleteStudent extends javax.swing.JPanel {
+        private String IP = PanelPrincipal.IP;
 
     public DeleteStudent() {
         initComponents();
@@ -160,7 +161,7 @@ public class DeleteStudent extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://10.227.189.133:3306/prog", "root", "alumno")) {
+        try (Connection conn = DriverManager.getConnection(IP, "root", "alumno")) {
 
             System.out.println("¡Conexión exitosa!");
 
@@ -192,7 +193,7 @@ public class DeleteStudent extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void delButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delButtonActionPerformed
-        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://10.227.189.133:3306/prog", "root", "alumno")) {
+        try (Connection conn = DriverManager.getConnection(IP, "root", "alumno")) {
 
             System.out.println("¡Conexión exitosa!");
 

@@ -19,8 +19,8 @@ import java.sql.PreparedStatement;
  * @author SetyV
  */
 public class AddStudent extends javax.swing.JPanel {
+        private String IP = PanelPrincipal.IP;
 
-    
     public AddStudent() {
         initComponents();
     }
@@ -58,17 +58,17 @@ public class AddStudent extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
         jLabel1.setText("Apellido");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, -1));
 
         TextApellido.setText("Ingrese su apellido");
-        add(TextApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 360, 30));
+        add(TextApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 360, 30));
 
         jLabel2.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
         jLabel2.setText("Nombre");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, -1, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
         textNombre.setText("Ingrese su nombre");
-        add(textNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 360, 30));
+        add(textNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 360, 30));
 
         jLabel3.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
         jLabel3.setText("NIA");
@@ -125,23 +125,21 @@ public class AddStudent extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      
-        try(Connection conexion = DriverManager.getConnection("jdbc:mariadb://10.227.189.133:3306/prog", "root", "alumno");) {
-          
-          
-            System.out.println("¡Conexión exitosa!");
-String query = "INSERT INTO alumnos(ID_Alumno, Nombre, Apellidos, Edad, NIA, Ciclo, Curso, Fecha_Matricula) VALUES("
-    + TextID.getText() + ","
-    + "'" + textNombre.getText() + "',"
-    + "'" + TextApellido.getText() + "',"
-    + TextEdad.getText() + ","
-    + textnia.getText() + ","
-    + "'" + TextCiclo.getText() + "',"
-    + "'" + TextCurso.getText() + "',"
-    + "'" + TextMatricula.getText() + "')";
-           PreparedStatement preparedStatement = conexion.prepareStatement(query);
 
-            
+        try (Connection conexion = DriverManager.getConnection(IP, "root", "alumno");) {
+
+            System.out.println("¡Conexión exitosa!");
+            String query = "INSERT INTO alumnos(ID_Alumno, Nombre, Apellidos, Edad, NIA, Ciclo, Curso, Fecha_Matricula) VALUES("
+                    + TextID.getText() + ","
+                    + "'" + textNombre.getText() + "',"
+                    + "'" + TextApellido.getText() + "',"
+                    + TextEdad.getText() + ","
+                    + textnia.getText() + ","
+                    + "'" + TextCiclo.getText() + "',"
+                    + "'" + TextCurso.getText() + "',"
+                    + "'" + TextMatricula.getText() + "')";
+            PreparedStatement preparedStatement = conexion.prepareStatement(query);
+
             int columnas = preparedStatement.executeUpdate();
 
             if (columnas > 0) {
@@ -149,11 +147,13 @@ String query = "INSERT INTO alumnos(ID_Alumno, Nombre, Apellidos, Edad, NIA, Cic
             } else {
                 System.out.println("Error al insertar el usuario.");
             }
-            
-    }   catch (SQLException ex) {
+
+        } catch (SQLException ex) {
             Logger.getLogger(BDD.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+        
+                
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
