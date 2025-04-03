@@ -1,9 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package bdd;
 
+import bdd.AlumnoMc;
+import bdd.PanelPrincipal;
 import java.awt.BorderLayout;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,12 +18,12 @@ import javax.swing.JPanel;
  *
  * @author Vespertino
  */
-public class NewJFrame extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame
      */
-    public NewJFrame() {
+    public Login() {
         initComponents();
     }
 
@@ -172,7 +171,14 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_adminBotonActionPerformed
 
     private void buttonAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAlumnoActionPerformed
- char [] contraseña  = campoContra.getPassword();
+        char [] contraseña  = campoContra.getPassword();
+        String password = new String (contraseña);
+        AlumnoMc al = new AlumnoMc();
+        al.setDatos(usuario1.getText(), password);
+        al.revalidar();
+        al.setVisible(true);
+        dispose();
+        /*char [] contraseña  = campoContra.getPassword();
         String password = new String (contraseña);
         
         
@@ -188,7 +194,6 @@ public class NewJFrame extends javax.swing.JFrame {
             if (rs.next()) {
                 
                 if(rs.getString("rol").equals("Alumno"))
-                
                 
                 System.out.println("es un alumno"); 
                 dispose();
@@ -207,8 +212,8 @@ public class NewJFrame extends javax.swing.JFrame {
             
         System.out.println("aña");
     }else{
-        System.out.println("gil");
-    }
+        System.out.println("gil");*/
+    
         
     }//GEN-LAST:event_buttonAlumnoActionPerformed
 
@@ -229,23 +234,24 @@ public class NewJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewJFrame().setVisible(true);
+                new Login().setVisible(true);
             }
-        });
-    }
+        });}
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JLusuario;

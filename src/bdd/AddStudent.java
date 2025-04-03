@@ -23,6 +23,8 @@ public class AddStudent extends javax.swing.JPanel {
 
     public AddStudent() {
         initComponents();
+            
+           
     }
 
     /**
@@ -127,19 +129,32 @@ public class AddStudent extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         try (Connection conexion = DriverManager.getConnection(IP, "root", "alumno");) {
-
+            int numeroAleatorio = (int) (Math.random() * 101);
+            String usuarioU = textNombre.getText()+TextApellido.getText()+numeroAleatorio;
+            String contraseña = "contraseña";
+            String rol="Alumno";
             System.out.println("¡Conexión exitosa!");
-            String query = "INSERT INTO alumnos(ID_Alumno, Nombre, Apellidos, Edad, NIA, Ciclo, Curso, Fecha_Matricula) VALUES("
-                    + TextID.getText() + ","
-                    + "'" + textNombre.getText() + "',"
-                    + "'" + TextApellido.getText() + "',"
-                    + TextEdad.getText() + ","
-                    + textnia.getText() + ","
-                    + "'" + TextCiclo.getText() + "',"
-                    + "'" + TextCurso.getText() + "',"
-                    + "'" + TextMatricula.getText() + "')";
+            
+             String query = "INSERT INTO alumnos (ID_Alumno, Nombre, Apellidos, Edad, NIA, Ciclo, Curso, Fecha_Matricula) "
+                    + "VALUES (" 
+                    + TextID.getText() + ", " 
+                    + "'" + textNombre.getText() + "', "
+                    + "'" + TextApellido.getText() + "', "
+                    + TextEdad.getText() + ", '"
+                    + textnia.getText() + "', '"
+                    + TextCiclo.getText() + "', '"
+                    + TextCurso.getText() + "', '"
+                    + TextMatricula.getText() + "')";
+            
             PreparedStatement preparedStatement = conexion.prepareStatement(query);
-
+            
+             String query2 = "INSERT INTO usuarios(Nombre_Usuario, Contraseña_Hash, Rol,ID_Alumno)VALUES('"
+                    + usuarioU + ","
+                    + "'" + contraseña + "',"
+                    + "'" + rol + "',"
+                    + TextID.getText()+"')";
+             
+             
             int columnas = preparedStatement.executeUpdate();
 
             if (columnas > 0) {

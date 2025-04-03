@@ -23,6 +23,7 @@ public class PanelPrincipal extends javax.swing.JFrame {
     public static String IP="jdbc:mariadb://10.227.189.184:3306/prog";
     public PanelPrincipal() {
         initComponents();
+        System.out.println("hola");
         
     }
 

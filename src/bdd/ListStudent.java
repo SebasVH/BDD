@@ -11,51 +11,7 @@ public class ListStudent extends javax.swing.JPanel {
     public ListStudent() {
         initComponents();
          
-        // Datos de ejemplo para la tabla
-        Object[][] data = {
-            {"John", 28, "Engineer"},
-            {"Anna", 22, "Designer"},
-            {"Mike", 35, "Manager"}
-        };
-        
-         // Nombres de las columnas
-        String[] columns = {"Name", "Age", "Occupation"};
-        
-        // Crear el modelo de tabla original
-        DefaultTableModel originalModel = new DefaultTableModel(data, columns);
-        
-        // Crear el modelo de tabla transpuesto
-        TableModel transposedModel = new AbstractTableModel() {
-            @Override
-            public int getRowCount() {
-                return originalModel.getColumnCount(); // Las columnas se convierten en filas
-            }
-
-            @Override
-            public int getColumnCount() {
-                return originalModel.getRowCount(); // Las filas se convierten en columnas
-            }
-
-            @Override
-            public Object getValueAt(int row, int column) {
-                return originalModel.getValueAt(column, row); // Intercambia filas por columnas
-            }
-
-            @Override
-            public String getColumnName(int column) {
-                return originalModel.getColumnName(column); // Los nombres de las columnas no cambian
-            }
-
-            @Override
-            public Class<?> getColumnClass(int columnIndex) {
-                return originalModel.getColumnClass(columnIndex);
-            }
-        };
-        
-        // Establecer el modelo transpuesto en el JTable
-        jTable1.setModel(transposedModel); // jTable1 es el nombre generado por NetBeans
     }
-
     
 
     @SuppressWarnings("unchecked")
