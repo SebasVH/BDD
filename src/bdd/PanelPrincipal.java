@@ -19,8 +19,16 @@ public class PanelPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
+    private static int IDprof;
+    public static String IP="jdbc:mariadb://localhost:3306/prueba";
     
-    public static String IP="jdbc:mariadb://10.227.189.184:3306/prog";
+    public void setIDprof(int ID){
+    this.IDprof=ID;
+    }
+    public static int getIDprof() {
+        return IDprof;
+    }
+    
     public PanelPrincipal() {
         initComponents();
         System.out.println("hola");
@@ -37,21 +45,32 @@ public class PanelPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         Panel_Principal = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         listar = new javax.swing.JButton();
         addStudent = new javax.swing.JButton();
         killStudent = new javax.swing.JButton();
-        modifyStudent = new javax.swing.JButton();
+        addNotas = new javax.swing.JButton();
         listar1 = new javax.swing.JButton();
         alv = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        modifyStudent = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(900, 664));
 
         Panel_Principal.setBackground(new java.awt.Color(255, 252, 255));
         Panel_Principal.setForeground(new java.awt.Color(80, 47, 89));
         Panel_Principal.setPreferredSize(new java.awt.Dimension(900, 664));
         Panel_Principal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/mcdonaldo2.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setFocusable(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        Panel_Principal.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 140, 120));
 
         listar.setBackground(new java.awt.Color(0, 0, 0));
         listar.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 12)); // NOI18N
@@ -62,7 +81,7 @@ public class PanelPrincipal extends javax.swing.JFrame {
                 listarActionPerformed(evt);
             }
         });
-        Panel_Principal.add(listar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 90, 70));
+        Panel_Principal.add(listar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, 90, 70));
 
         addStudent.setBackground(new java.awt.Color(255, 199, 44));
         addStudent.setFont(new java.awt.Font("McDonalds Helvetica", 1, 18)); // NOI18N
@@ -86,15 +105,15 @@ public class PanelPrincipal extends javax.swing.JFrame {
         });
         Panel_Principal.add(killStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 220, 70));
 
-        modifyStudent.setFont(new java.awt.Font("McDonalds Helvetica", 1, 18)); // NOI18N
-        modifyStudent.setForeground(new java.awt.Color(218, 41, 28));
-        modifyStudent.setText("Modificar Estudiante");
-        modifyStudent.addActionListener(new java.awt.event.ActionListener() {
+        addNotas.setFont(new java.awt.Font("McDonalds Helvetica", 1, 18)); // NOI18N
+        addNotas.setForeground(new java.awt.Color(218, 41, 28));
+        addNotas.setText("Agregar Notinhas");
+        addNotas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modifyStudentActionPerformed(evt);
+                addNotasActionPerformed(evt);
             }
         });
-        Panel_Principal.add(modifyStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 220, 70));
+        Panel_Principal.add(addNotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 220, 70));
 
         listar1.setBackground(new java.awt.Color(255, 199, 44));
         listar1.setFont(new java.awt.Font("McDonalds Helvetica", 1, 18)); // NOI18N
@@ -111,17 +130,24 @@ public class PanelPrincipal extends javax.swing.JFrame {
         alv.setLayout(alvLayout);
         alvLayout.setHorizontalGroup(
             alvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         alvLayout.setVerticalGroup(
             alvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 670, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         Panel_Principal.add(alv, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 680, 670));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/mcdonaldo2.png"))); // NOI18N
-        Panel_Principal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 130));
+        modifyStudent.setFont(new java.awt.Font("McDonalds Helvetica", 1, 18)); // NOI18N
+        modifyStudent.setForeground(new java.awt.Color(218, 41, 28));
+        modifyStudent.setText("Modificar Estudiante");
+        modifyStudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifyStudentActionPerformed(evt);
+            }
+        });
+        Panel_Principal.add(modifyStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 220, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -153,13 +179,21 @@ public class PanelPrincipal extends javax.swing.JFrame {
           showCsm(new DeleteStudent());  // TODO add your handling code here:
     }//GEN-LAST:event_killStudentActionPerformed
 
-    private void modifyStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyStudentActionPerformed
-        showCsm(new ModStudent());
-    }//GEN-LAST:event_modifyStudentActionPerformed
+    private void addNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNotasActionPerformed
+        showCsm(new Notas());
+    }//GEN-LAST:event_addNotasActionPerformed
 
     private void listar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listar1ActionPerformed
         showCsm(new ListStudent());
     }//GEN-LAST:event_listar1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void modifyStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyStudentActionPerformed
+        showCsm(new ModStudent());// TODO add your handling code here:
+    }//GEN-LAST:event_modifyStudentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,9 +246,10 @@ public class PanelPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Panel_Principal;
+    private javax.swing.JButton addNotas;
     private javax.swing.JButton addStudent;
     private javax.swing.JPanel alv;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton killStudent;
     private javax.swing.JButton listar;
     private javax.swing.JButton listar1;

@@ -4,28 +4,51 @@
  */
 package bdd;
 
+import java.util.List;
+
 /**
  *
  * @author Vespertino
  */
 public class AlumnoMc extends javax.swing.JFrame {
-    private String usuario1;
-    private String password;
+    private int IdAlumno;
+    private List<Object[]> datos;
+    private int indiceActual = 0;
+
     
-    public void setDatos(String usuario1, String password){
-    this.usuario1=usuario1;
-    this.password=password;
+    public void setID(int ID){
+    this.IdAlumno=ID;
     }
-    /**
-     * Creates new form AlumnoMc
-     */
+    
     public AlumnoMc() {
         initComponents();
+        // cargarDatos(IdAlumno);
+        
+        
         
     }
-    public void revalidar(){
-    IvanGod.comprobarNotas(lblCiclo,lblCurso,lblNombre,lblNota1,lblNota2,lblNota3,lblNotaF,usuario1,password);
-
+     /*private void cargarDatos(int idAlumno) {
+        NotasService service = new NotasService(idAlumno);
+        this.datos = service.obtenerDatosCombinados();
+    }*/
+    public void actualizarVista(int direccion) {
+        if(datos.isEmpty()) return;
+        
+        // Actualizar índice con límites circulares
+        indiceActual = (indiceActual + direccion + datos.size()) % datos.size();
+        
+        Object[] registro = datos.get(indiceActual);
+        
+        // Asignar valores a los JLabels
+        lbl1raNota.setText(String.format("%.2f", registro[0]));
+        lbl2daNota.setText(String.format("%.2f", registro[1]));
+        lbl3raNota.setText(String.format("%.2f", registro[2]));
+        lblNotaF.setText(String.format("%.2f", registro[3]));
+        
+        lblNombre.setText("Quejarse con: "+"  "+Metodos.getNombreProfesor((int)registro[4]));
+        lblModulos.setText("Módulo ID: " + registro[5]+" "+Metodos.getNombreModulo((int)registro[5]));
+        lblCiclo.setText("Ciclo: " + registro[7]);
+        lblCurso.setText("Curso: " + registro[8]);
     }
     
     
@@ -45,21 +68,26 @@ public class AlumnoMc extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lblCurso = new javax.swing.JLabel();
-        lblNota1 = new javax.swing.JLabel();
+        lbl1raNota = new javax.swing.JLabel();
         lblCiclo = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
-        Nota1 = new javax.swing.JLabel();
+        lblModulos = new javax.swing.JLabel();
         Nota5 = new javax.swing.JLabel();
         Nota6 = new javax.swing.JLabel();
         Nota7 = new javax.swing.JLabel();
         lblNotaF = new javax.swing.JLabel();
-        lblNota3 = new javax.swing.JLabel();
-        lblNota2 = new javax.swing.JLabel();
+        lbl3raNota = new javax.swing.JLabel();
+        lbl2daNota = new javax.swing.JLabel();
+        lblNombreAl = new javax.swing.JLabel();
+        Nota2 = new javax.swing.JLabel();
+        adelante = new javax.swing.JButton();
+        atras = new javax.swing.JButton();
+        iniciar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(900, 650));
         setMinimumSize(new java.awt.Dimension(900, 650));
-        setPreferredSize(new java.awt.Dimension(900, 650));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -67,27 +95,27 @@ public class AlumnoMc extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblCurso.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
-        lblCurso.setText("Curso");
-        jPanel1.add(lblCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
+        lblCurso.setText("Curso :");
+        jPanel1.add(lblCurso, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 441, 190, 40));
 
-        lblNota1.setBackground(new java.awt.Color(255, 51, 51));
-        lblNota1.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
-        lblNota1.setForeground(new java.awt.Color(255, 255, 255));
-        lblNota1.setText("Nombre");
-        lblNota1.setOpaque(true);
-        jPanel1.add(lblNota1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 100, 80));
+        lbl1raNota.setBackground(new java.awt.Color(255, 51, 51));
+        lbl1raNota.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
+        lbl1raNota.setForeground(new java.awt.Color(255, 255, 255));
+        lbl1raNota.setText("Nombre");
+        lbl1raNota.setOpaque(true);
+        jPanel1.add(lbl1raNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 100, 80));
 
         lblCiclo.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
-        lblCiclo.setText("Ciclo");
-        jPanel1.add(lblCiclo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+        lblCiclo.setText("Ciclo :");
+        jPanel1.add(lblCiclo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 371, 180, 50));
 
         lblNombre.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
-        lblNombre.setText("Nombre");
-        jPanel1.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, -1, -1));
+        lblNombre.setText("Nombre del Alumno");
+        jPanel1.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 580, 790, 40));
 
-        Nota1.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
-        Nota1.setText("Nota Final");
-        jPanel1.add(Nota1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 190, 120, 40));
+        lblModulos.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
+        lblModulos.setText("Nota Final");
+        jPanel1.add(lblModulos, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, 450, 40));
 
         Nota5.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
         Nota5.setText("1ra Nota");
@@ -108,19 +136,56 @@ public class AlumnoMc extends javax.swing.JFrame {
         lblNotaF.setOpaque(true);
         jPanel1.add(lblNotaF, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 250, 100, 80));
 
-        lblNota3.setBackground(new java.awt.Color(255, 51, 51));
-        lblNota3.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
-        lblNota3.setForeground(new java.awt.Color(255, 255, 255));
-        lblNota3.setText("Nombre");
-        lblNota3.setOpaque(true);
-        jPanel1.add(lblNota3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, 100, 80));
+        lbl3raNota.setBackground(new java.awt.Color(255, 51, 51));
+        lbl3raNota.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
+        lbl3raNota.setForeground(new java.awt.Color(255, 255, 255));
+        lbl3raNota.setText("Nombre");
+        lbl3raNota.setOpaque(true);
+        jPanel1.add(lbl3raNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, 100, 80));
 
-        lblNota2.setBackground(new java.awt.Color(255, 51, 51));
-        lblNota2.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
-        lblNota2.setForeground(new java.awt.Color(255, 255, 255));
-        lblNota2.setText("Nombre");
-        lblNota2.setOpaque(true);
-        jPanel1.add(lblNota2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, 100, 80));
+        lbl2daNota.setBackground(new java.awt.Color(255, 51, 51));
+        lbl2daNota.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
+        lbl2daNota.setForeground(new java.awt.Color(255, 255, 255));
+        lbl2daNota.setText("Nombre");
+        lbl2daNota.setOpaque(true);
+        jPanel1.add(lbl2daNota, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, 100, 80));
+
+        lblNombreAl.setFont(new java.awt.Font("McDonalds Helvetica", 1, 18)); // NOI18N
+        lblNombreAl.setForeground(new java.awt.Color(255, 51, 0));
+        lblNombreAl.setText("NombreAl");
+        jPanel1.add(lblNombreAl, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, 180, 50));
+
+        Nota2.setFont(new java.awt.Font("Speedee", 1, 24)); // NOI18N
+        Nota2.setText("Nota Final");
+        jPanel1.add(Nota2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 190, 120, 40));
+
+        adelante.setText("Adelante");
+        adelante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adelanteActionPerformed(evt);
+            }
+        });
+        jPanel1.add(adelante, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 520, 110, 50));
+
+        atras.setText("Atras");
+        atras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atrasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(225, 523, 110, 50));
+
+        iniciar.setText("Start");
+        iniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iniciarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(iniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 530, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("McDonalds Helvetica", 1, 18)); // NOI18N
+        jLabel3.setText("Habla pe Causa :");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 180, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,6 +204,22 @@ public class AlumnoMc extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void atrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atrasActionPerformed
+        actualizarVista(-1);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atrasActionPerformed
+
+    private void adelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adelanteActionPerformed
+    actualizarVista(1);        // TODO add your handling code here:
+    }//GEN-LAST:event_adelanteActionPerformed
+
+    private void iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarActionPerformed
+    
+        this.datos = Metodos.obtenerDatosCombinados(this.IdAlumno);
+        lblNombreAl.setText(Metodos.getNombreAl(this.IdAlumno));
+        actualizarVista(0);        // TODO add your handling code here:
+    }//GEN-LAST:event_iniciarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,17 +257,23 @@ public class AlumnoMc extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Nota1;
+    private javax.swing.JLabel Nota2;
     private javax.swing.JLabel Nota5;
     private javax.swing.JLabel Nota6;
     private javax.swing.JLabel Nota7;
+    private javax.swing.JButton adelante;
+    private javax.swing.JButton atras;
+    private javax.swing.JButton iniciar;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbl1raNota;
+    private javax.swing.JLabel lbl2daNota;
+    private javax.swing.JLabel lbl3raNota;
     private javax.swing.JLabel lblCiclo;
     private javax.swing.JLabel lblCurso;
+    private javax.swing.JLabel lblModulos;
     private javax.swing.JLabel lblNombre;
-    private javax.swing.JLabel lblNota1;
-    private javax.swing.JLabel lblNota2;
-    private javax.swing.JLabel lblNota3;
+    private javax.swing.JLabel lblNombreAl;
     private javax.swing.JLabel lblNotaF;
     // End of variables declaration//GEN-END:variables
 }

@@ -128,92 +128,41 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_campoContraActionPerformed
 
     private void adminBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminBotonActionPerformed
-       
+       String user = usuario1.getText();
+        // Mantengo la contraseña
         char [] contraseña  = campoContra.getPassword();
         String password = new String (contraseña);
-        
-        String correctoU;
-        String correctoP;
-        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://10.227.189.252/prog", "root", "alumno")) {
+        // Aplico MD5
+        String passwordReal = Metodos.cifrarMD5(password);
+        // Creo la interfaz Alumno
+        if(Metodos.obtenerIdProfPC(user, passwordReal)>0){
+        PanelPrincipal prof = new PanelPrincipal();
+         prof.setIDprof(Metodos.obtenerIdProfPC(user, passwordReal));
 
-            System.out.println("¡Conexión exitosa!");
-
-            Statement stmt = conn.createStatement();
-            String query = "SELECT rol FROM Usuarios WHERE Nombre_Usuario = '"+usuario1.getText()+"' AND Contraseña_Hash = '"+password+"'";
-            // String query= "DELETE FROM equipo WHERE nomeq LIKE 'sr1e';";
-            ResultSet rs = stmt.executeQuery(query);
-            
-            if (rs.next()) {
-                
-                if(rs.getString("rol").equals("Profesor"))
-                
-                
-                System.out.println("es un profesor"); 
-                dispose();
-                new PanelPrincipal().setVisible(true);
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Nombre de Usuario o Contraseña Incorrecto", query, 1);
-            }
-        
-        
-        } catch (SQLException e) {
-            System.err.println("Error de conexión SQL");
-            e.printStackTrace();
-        }
-        if(password.equals("jijijija")){
-            
-        System.out.println("aña");
-    }else{
-        System.out.println("gil");
-    }
+        //al.setID(Metodos.obtenerIdAlPC(user, passwordReal));
+        prof.setVisible(true);
+        dispose();}else{
+        JOptionPane.showMessageDialog(null, "Eres un gil");}
            // TODO add your handling code here:
     }//GEN-LAST:event_adminBotonActionPerformed
 
     private void buttonAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAlumnoActionPerformed
+        String user = usuario1.getText();
+        // Mantengo la contraseña
         char [] contraseña  = campoContra.getPassword();
         String password = new String (contraseña);
+        // Aplico MD5
+        String passwordReal = Metodos.cifrarMD5(password);
+        // Creo la interfaz Alumno
+        if(Metodos.obtenerIdAlPC(user, passwordReal)>0){
         AlumnoMc al = new AlumnoMc();
-        al.setDatos(usuario1.getText(), password);
-        al.revalidar();
+        al.setID(Metodos.obtenerIdAlPC(user, passwordReal));
         al.setVisible(true);
-        dispose();
-        /*char [] contraseña  = campoContra.getPassword();
-        String password = new String (contraseña);
-        
-        
-        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://10.227.189.252/prog", "root", "alumno")) {
- 
-            System.out.println("¡Conexión exitosa!");
-
-            Statement stmt = conn.createStatement();
-            String query = "SELECT rol FROM Usuarios WHERE Nombre_Usuario = '"+usuario1.getText()+"' AND Contraseña_Hash = '"+password+"'";
-            // String query= "DELETE FROM equipo WHERE nomeq LIKE 'sr1e';";
-            ResultSet rs = stmt.executeQuery(query);
-            
-            if (rs.next()) {
-                
-                if(rs.getString("rol").equals("Alumno"))
-                
-                System.out.println("es un alumno"); 
-                dispose();
-                
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Nombre de Usuario o Contraseña Incorrecto", query, 1);
-            }
-        
-        
-        } catch (SQLException e) {
-            System.err.println("Error de conexión SQL");
-            e.printStackTrace();
+        dispose();}else{
+        JOptionPane.showMessageDialog(null, "Eres un gil");
         }
-        if(password.equals("jijijija")){
-            
-        System.out.println("aña");
-    }else{
-        System.out.println("gil");*/
-    
+        
+        
         
     }//GEN-LAST:event_buttonAlumnoActionPerformed
 

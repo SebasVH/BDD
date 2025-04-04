@@ -1,13 +1,39 @@
 package bdd;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BDD {
-
+    
+    
+     public static String cifrarMD5(String input) {
+        String[] cont;
+        try {
+            // Crear un objeto MessageDigest para MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            
+            // Pasar la entrada a bytes y obtener el hash
+            byte[] bytes = md.digest(input.getBytes());
+            
+            // Convertir el byte[] resultante a una cadena hexadecimal
+            StringBuilder sb = new StringBuilder();
+            for (byte b : bytes) {
+                sb.append(String.format("%2x", b)); // Formato hexadecimal
+            }
+            
+            cont=sb.toString().split(" "); // Devolver el hash en formato hexadecimal
+            return cont[0];
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null; // Si ocurre un error, devolver null
+        }}
+     
+     
     public static void main(String[] args) {
-        String url = "jdbc:mariadb://10.227.189.79:3306/prog";
+        /*String url = "jdbc:mariadb://10.227.189.79:3306/prog";
         String usuario = "root";
         String contraseña = "alumno";
 
@@ -32,8 +58,9 @@ public class BDD {
             
     }   catch (SQLException ex) {
             Logger.getLogger(BDD.class.getName()).log(Level.SEVERE, null, ex);
-        }
-      
+        }*/
+        System.out.println(cifrarMD5("comida"));
+        
     }  
     }
 
