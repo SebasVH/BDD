@@ -1,19 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package bdd;
+
+import bdd.AlumnoMc;
+import bdd.PanelPrincipal;
+import java.awt.BorderLayout;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Vespertino
  */
-public class NewJFrame extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame
      */
-    public NewJFrame() {
+    public Login() {
         initComponents();
     }
 
@@ -30,9 +40,9 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         JLusuario = new javax.swing.JLabel();
         JLusuario1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        usuario1 = new javax.swing.JTextField();
         adminBoton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        buttonAlumno = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         campoContra = new javax.swing.JPasswordField();
 
@@ -57,14 +67,14 @@ public class NewJFrame extends javax.swing.JFrame {
         JLusuario1.setText("USUARIO");
         Panel_Principal.add(JLusuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 130, 50));
 
-        jTextField2.setFont(new java.awt.Font("Perpetua", 2, 24)); // NOI18N
-        jTextField2.setText("Ingrese su nombre de usuario");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        usuario1.setFont(new java.awt.Font("Perpetua", 2, 24)); // NOI18N
+        usuario1.setText("Ingrese su nombre de usuario");
+        usuario1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                usuario1ActionPerformed(evt);
             }
         });
-        Panel_Principal.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 420, 30));
+        Panel_Principal.add(usuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 420, 30));
 
         adminBoton.setText("Iniciar Sesion como Profesor");
         adminBoton.addActionListener(new java.awt.event.ActionListener() {
@@ -74,8 +84,13 @@ public class NewJFrame extends javax.swing.JFrame {
         });
         Panel_Principal.add(adminBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 380, 200, 50));
 
-        jButton2.setText("Iniciar Sesion como Alumno");
-        Panel_Principal.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 200, 50));
+        buttonAlumno.setText("Iniciar Sesion como Alumno");
+        buttonAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAlumnoActionPerformed(evt);
+            }
+        });
+        Panel_Principal.add(buttonAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 200, 50));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/imagenes/jaja.jpg"))); // NOI18N
         jLabel2.setText("jLabel2");
@@ -104,22 +119,103 @@ public class NewJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void usuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuario1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_usuario1ActionPerformed
 
     private void campoContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoContraActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoContraActionPerformed
 
     private void adminBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminBotonActionPerformed
+       
+        char [] contraseña  = campoContra.getPassword();
+        String password = new String (contraseña);
         
-        if(campoContra.getAccessibleContext().equals("jijijija")){
+        String correctoU;
+        String correctoP;
+        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://10.227.189.252/prog", "root", "alumno")) {
+
+            System.out.println("¡Conexión exitosa!");
+
+            Statement stmt = conn.createStatement();
+            String query = "SELECT rol FROM Usuarios WHERE Nombre_Usuario = '"+usuario1.getText()+"' AND Contraseña_Hash = '"+password+"'";
+            // String query= "DELETE FROM equipo WHERE nomeq LIKE 'sr1e';";
+            ResultSet rs = stmt.executeQuery(query);
+            
+            if (rs.next()) {
+                
+                if(rs.getString("rol").equals("Profesor"))
+                
+                
+                System.out.println("es un profesor"); 
+                dispose();
+                new PanelPrincipal().setVisible(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Nombre de Usuario o Contraseña Incorrecto", query, 1);
+            }
+        
+        
+        } catch (SQLException e) {
+            System.err.println("Error de conexión SQL");
+            e.printStackTrace();
+        }
+        if(password.equals("jijijija")){
+            
         System.out.println("aña");
     }else{
         System.out.println("gil");
-    }        // TODO add your handling code here:
+    }
+           // TODO add your handling code here:
     }//GEN-LAST:event_adminBotonActionPerformed
+
+    private void buttonAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAlumnoActionPerformed
+        char [] contraseña  = campoContra.getPassword();
+        String password = new String (contraseña);
+        AlumnoMc al = new AlumnoMc();
+        al.setDatos(usuario1.getText(), password);
+        al.revalidar();
+        al.setVisible(true);
+        dispose();
+        /*char [] contraseña  = campoContra.getPassword();
+        String password = new String (contraseña);
+        
+        
+        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://10.227.189.252/prog", "root", "alumno")) {
+ 
+            System.out.println("¡Conexión exitosa!");
+
+            Statement stmt = conn.createStatement();
+            String query = "SELECT rol FROM Usuarios WHERE Nombre_Usuario = '"+usuario1.getText()+"' AND Contraseña_Hash = '"+password+"'";
+            // String query= "DELETE FROM equipo WHERE nomeq LIKE 'sr1e';";
+            ResultSet rs = stmt.executeQuery(query);
+            
+            if (rs.next()) {
+                
+                if(rs.getString("rol").equals("Alumno"))
+                
+                System.out.println("es un alumno"); 
+                dispose();
+                
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Nombre de Usuario o Contraseña Incorrecto", query, 1);
+            }
+        
+        
+        } catch (SQLException e) {
+            System.err.println("Error de conexión SQL");
+            e.printStackTrace();
+        }
+        if(password.equals("jijijija")){
+            
+        System.out.println("aña");
+    }else{
+        System.out.println("gil");*/
+    
+        
+    }//GEN-LAST:event_buttonAlumnoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,33 +234,34 @@ public class NewJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewJFrame().setVisible(true);
+                new Login().setVisible(true);
             }
-        });
-    }
+        });}
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JLusuario;
     private javax.swing.JLabel JLusuario1;
     private javax.swing.JPanel Panel_Principal;
     private javax.swing.JButton adminBoton;
+    private javax.swing.JButton buttonAlumno;
     private javax.swing.JPasswordField campoContra;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField usuario1;
     // End of variables declaration//GEN-END:variables
 }
